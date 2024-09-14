@@ -8,6 +8,27 @@
       "when": 1726282257367,
       "tag": "0000_small_madame_masque",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1726299456719,
+      "tag": "0001_light_iron_monger",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1726299542679,
+      "tag": "0002_omniscient_stingray",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1726302234094,
+      "tag": "0003_cuddly_kang",
+      "breakpoints": true
     }
   ]
 }
