@@ -12,7 +12,7 @@ export type GoogleTokenParam = z.TypeOf<typeof GoogleTokenParamSchema>;
 
 export const googleTokenEndpointSchema = z.object({
   access_token: z.string(),
-  refresh_token: z.string(),
+  refresh_token: z.string().optional(),
   id_token: z.string(),
   expires_in: z.number(),
   scope: z.string().or(z.null()),

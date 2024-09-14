@@ -1,11 +1,11 @@
 import { type GoogleTokenParam, googleTokenEndpointSchema } from "./schemas";
 import { HTTP_METHOD, fetcher } from "~/fetcher";
 
-export const fetchToken = (
+export const fetchToken = async (
   tokenEndpoint: string,
   param: Omit<GoogleTokenParam, "grant_type">,
 ) => {
-  return fetcher({
+  const res = await fetcher({
     request: {
       url: tokenEndpoint,
       opt: {
@@ -19,4 +19,5 @@ export const fetchToken = (
     },
     response: { schema: googleTokenEndpointSchema },
   });
+  return res;
 };
