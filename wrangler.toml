@@ -5,4 +5,4 @@ database_id = "705c2c5f-de8c-4738-8f21-57b0825fcf05"
 migrations_dir = "./migrations"
 
 [vars]
-REDIRECT_URI = "http://localhost:8788/api/auth/callback"
+GOOGLE_REDIRECT_URI = "http://localhost:8788/api/auth/google/callback"
