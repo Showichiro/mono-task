@@ -5,8 +5,8 @@ export const categories = sqliteTable("categories", {
   name: text("name").notNull(),
   detail: text("detail"),
   projectId: int("project_id").notNull(),
-  createUserId: text("create_user_id").notNull(),
-  updateUserId: text("update_user_id").notNull(),
+  createUserId: int("create_user_id").notNull(),
+  updateUserId: int("update_user_id").notNull(),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });

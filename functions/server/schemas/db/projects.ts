@@ -4,8 +4,8 @@ export const projects = sqliteTable("projects", {
   id: int("id").primaryKey(),
   name: text("name").notNull(),
   detail: text("detail"),
-  createUserId: text("create_user_id").notNull(),
-  updateUserId: text("update_user_id").notNull(),
+  createUserId: int("create_user_id").notNull(),
+  updateUserId: int("update_user_id").notNull(),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
