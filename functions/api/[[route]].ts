@@ -7,7 +7,10 @@ const app = factory()
   .get("/hello", (c) => {
     return c.text("Hello Hono");
   })
-  .route("/auth/google", googleAuthHandler);
+  .route("/auth/google", googleAuthHandler)
+  .get("/authenticated/hello", (c) => {
+    return c.text("Authenticated Hello");
+  });
 
 export type AppType = typeof app;
 

@@ -19,6 +19,7 @@ export type Env = {
           };
     };
     tokenInfo: TokenInfo;
+    userId: number;
   };
   Bindings: {
     DB: D1Database;
