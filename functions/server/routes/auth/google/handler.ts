@@ -86,13 +86,10 @@ export const googleAuthHandler = new Hono<Env>()
         // 現在時刻から24時間
         expiresIn: performance.now() + 24 * 60 * 60 * 1000,
       });
-
-      const userRows = await c.var.db
-        .select({ userId: users.id })
-        .from(users)
-        .where(eq(users.sub, decoded.sub));
-
-      const user = userRows.at(0);
+      
+      const user = await c.var.db.query.users.findFirst({
+        where: eq(users.sub, decoded.sub),
+      });
 
       if (!user) {
         // ユーザーテーブルへのデータ登録
