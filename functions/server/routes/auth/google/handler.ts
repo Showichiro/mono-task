@@ -88,7 +88,7 @@ export const googleAuthHandler = new Hono<Env>()
       });
 
       const userRows = await c.var.db
-        .select({ userid: users.id })
+        .select({ userId: users.id })
         .from(users)
         .where(eq(users.sub, decoded.sub));
 
