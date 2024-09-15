@@ -47,17 +47,12 @@ export const factory = () => {
             throw new HTTPException(401, { message: "UnAuthorized" });
           }
           const { session_id } = result.data;
-          // sessionデータの取得
-          const rows = await c.var.db
-            .select()
-            .from(schema.session)
-            .where(
-              and(
-                eq(schema.session.id, session_id),
-                gte(schema.session.expiresIn, performance.now()),
-              ),
-            );
-          const data = rows.at(0);
+          const data = await c.var.db.query.session.findFirst({
+            where: and(
+              eq(schema.session.id, session_id),
+              gte(schema.session.expiresIn, performance.now()),
+            ),
+          });
           if (data == null) {
             throw new HTTPException(403, { message: "Forbidden" });
           }
