@@ -1,16 +1,14 @@
 import { handle } from "hono/cloudflare-pages";
-import { factory } from "../server/appFactory";
-import { googleAuthHandler } from "~/routes";
+import { appFactory } from "../server/appFactory";
+import { authenticatedHandler, authHandler } from "~/routes";
 
-const app = factory()
+const app = appFactory()
   .basePath("/api")
   .get("/hello", (c) => {
     return c.text("Hello Hono");
   })
-  .route("/auth/google", googleAuthHandler)
-  .get("/authenticated/hello", (c) => {
-    return c.text("Authenticated Hello");
-  });
+  .route("/auth", authHandler)
+  .route("/authenticated", authenticatedHandler);
 
 export type AppType = typeof app;
 
