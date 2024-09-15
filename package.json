@@ -10,7 +10,7 @@
     "format": "biome format --write .",
     "preview": "vite preview",
     "deploy": "bun run build && wrangler pages deploy pages",
-    "drizzle:update": "drizzle-kit generate --dialect sqlite --out ./migrations --schema ./functions/server/schemas/db.ts",
+    "drizzle:update": "drizzle-kit generate --dialect sqlite --out ./migrations --schema ./functions/server/schemas/db/index.ts",
     "schema:apply": "wrangler d1 migrations apply mono-task-db --local"
   },
   "dependencies": {
