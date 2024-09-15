@@ -29,6 +29,13 @@
       "when": 1726302234094,
       "tag": "0003_cuddly_kang",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1726367414835,
+      "tag": "0004_flimsy_scorpion",
+      "breakpoints": true
     }
   ]
 }

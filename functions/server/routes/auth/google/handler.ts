@@ -6,11 +6,12 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { fetchToken } from "~/features/auth/google";
 import { setCookie } from "hono/cookie";
-import { session } from "~/schemas";
+import { session, users } from "~/schemas";
 import {
   type IdTokenSchema,
   idTokenSchema,
 } from "~/features/auth/google/schemas";
+import { eq } from "drizzle-orm";
 
 export const googleAuthHandler = new Hono<Env>()
   .get("/login", (c) => {
@@ -85,6 +86,23 @@ export const googleAuthHandler = new Hono<Env>()
         // 現在時刻から24時間
         expiresIn: performance.now() + 24 * 60 * 60 * 1000,
       });
+
+      const userRows = await c.var.db
+        .select({ userid: users.id })
+        .from(users)
+        .where(eq(users.sub, decoded.sub));
+
+      const user = userRows.at(0);
+
+      if (!user) {
+        // ユーザーテーブルへのデータ登録
+        await c.var.db.insert(users).values({
+          sub: decoded.sub,
+          email: decoded.email,
+          name: decoded.name,
+          picture: decoded.picture,
+        });
+      }
 
       setCookie(c, "session_id", session_id);
       return c.redirect("/");

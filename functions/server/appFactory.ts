@@ -53,22 +53,33 @@ export const factory = () => {
             .from(schema.session)
             .where(
               and(
-                eq(schema.session, session_id),
+                eq(schema.session.id, session_id),
                 gte(schema.session.expiresIn, performance.now()),
               ),
             );
           const data = rows.at(0);
-          if (!data) {
-            await c.var.db
-              .delete(schema.session)
-              .where(eq(schema.session, session_id));
+          if (data == null) {
             throw new HTTPException(403, { message: "Forbidden" });
           }
           // セッション期限の更新
-          await c.var.db
+          const updatedRows = await c.var.db
             .update(schema.session)
             .set({ expiresIn: performance.now() + 24 * 60 * 60 * 1000 })
-            .where(eq(schema.session.id, session_id));
+            .where(eq(schema.session.id, data.id))
+            .returning();
+          // user_idを引き継げるように設定
+          const updated = updatedRows.at(0);
+          if (updated) {
+            const userIdRows = await c.var.db
+              .select({ id: schema.users.id })
+              .from(schema.users)
+              .where(eq(schema.users.sub, updated.sub));
+            const row = userIdRows.at(0);
+            if (row != null) {
+              // userId登録
+              c.set("userId", row.id);
+            }
+          }
         },
       ),
     );
